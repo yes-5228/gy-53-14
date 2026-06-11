@@ -16,7 +16,39 @@ def list_spaces():
             GROUP BY status
             """
         ).fetchall()
-    return {"items": rows_to_dicts(rows), "stats": {row["status"]: row["count"] for row in stats}}
+        area_stats = conn.execute(
+            """
+            SELECT
+                area,
+                COUNT(*) AS total,
+                SUM(CASE WHEN status = 'free' THEN 1 ELSE 0 END) AS free_count,
+                SUM(CASE WHEN status = 'occupied' THEN 1 ELSE 0 END) AS occupied_count,
+                SUM(CASE WHEN status = 'reserved' THEN 1 ELSE 0 END) AS reserved_count,
+                SUM(CASE WHEN status = 'maintenance' THEN 1 ELSE 0 END) AS maintenance_count
+            FROM spaces
+            GROUP BY area
+            ORDER BY free_count * 1.0 / COUNT(*) ASC
+            """
+        ).fetchall()
+    area_ranking = []
+    for row in area_stats:
+        total = row["total"]
+        free = row["free_count"]
+        idle_rate = round((free / total) * 100, 1) if total > 0 else 0
+        area_ranking.append({
+            "area": row["area"],
+            "total": total,
+            "free": free,
+            "occupied": row["occupied_count"],
+            "reserved": row["reserved_count"],
+            "maintenance": row["maintenance_count"],
+            "idle_rate": idle_rate,
+        })
+    return {
+        "items": rows_to_dicts(rows),
+        "stats": {row["status"]: row["count"] for row in stats},
+        "area_ranking": area_ranking,
+    }
 
 
 @spaces_bp.patch("/<int:space_id>")

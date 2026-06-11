@@ -6,6 +6,7 @@ import { parkingApi } from "../api/parking";
 
 const spaces = ref([]);
 const stats = ref({});
+const areaRanking = ref([]);
 const loading = ref(false);
 const error = ref("");
 
@@ -24,6 +25,7 @@ async function loadSpaces() {
     const data = await parkingApi.getSpaces();
     spaces.value = data.items;
     stats.value = data.stats;
+    areaRanking.value = data.area_ranking || [];
   } catch (err) {
     error.value = err.message;
   } finally {
@@ -50,7 +52,7 @@ onMounted(loadSpaces);
       <button class="primary-button" type="button" @click="loadSpaces">刷新</button>
     </header>
 
-    <StatGrid :stats="statItems" />
+    <StatGrid :stats="statItems" :area-ranking="areaRanking" />
     <p v-if="error" class="error-text">{{ error }}</p>
 
     <div class="space-grid" :class="{ muted: loading }">

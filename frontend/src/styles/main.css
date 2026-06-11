@@ -137,6 +137,210 @@ select {
   padding: 0 12px;
 }
 
+.ranking-panel {
+  display: grid;
+  gap: 18px;
+}
+
+.ranking-header {
+  align-items: baseline;
+  display: flex;
+  gap: 14px;
+  justify-content: space-between;
+}
+
+.ranking-header h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.ranking-hint {
+  color: #6b7c75;
+  font-size: 13px;
+}
+
+.ranking-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.ranking-card {
+  background: #ffffff;
+  border: 1px solid #dde6e1;
+  border-left: 4px solid #157f63;
+  border-radius: 8px;
+  box-shadow: 0 10px 28px rgb(30 50 42 / 8%);
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.ranking-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 36px rgb(30 50 42 / 12%);
+}
+
+.ranking-card.tension-critical {
+  border-left-color: #d32f2f;
+}
+
+.ranking-card.tension-high {
+  border-left-color: #f57c00;
+}
+
+.ranking-card.tension-medium {
+  border-left-color: #fbc02d;
+}
+
+.ranking-card.tension-low {
+  border-left-color: #388e3c;
+}
+
+.ranking-top {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+}
+
+.ranking-badge {
+  align-items: center;
+  background: #e6e9ee;
+  border-radius: 50%;
+  color: #4c5964;
+  display: flex;
+  font-size: 14px;
+  font-weight: 800;
+  height: 32px;
+  justify-content: center;
+  width: 32px;
+}
+
+.ranking-badge.rank-1 {
+  background: #ffd700;
+  color: #805600;
+}
+
+.ranking-badge.rank-2 {
+  background: #c0c0c0;
+  color: #4c5964;
+}
+
+.ranking-badge.rank-3 {
+  background: #cd7f32;
+  color: #ffffff;
+}
+
+.ranking-info {
+  display: grid;
+  gap: 2px;
+  flex: 1;
+}
+
+.ranking-info strong {
+  font-size: 16px;
+}
+
+.ranking-info span {
+  color: #6b7c75;
+  font-size: 13px;
+}
+
+.ranking-rate {
+  display: grid;
+  gap: 2px;
+  text-align: right;
+}
+
+.ranking-rate strong {
+  font-size: 22px;
+}
+
+.ranking-rate.tension-critical strong {
+  color: #d32f2f;
+}
+
+.ranking-rate.tension-high strong {
+  color: #f57c00;
+}
+
+.ranking-rate.tension-medium strong {
+  color: #fbc02d;
+}
+
+.ranking-rate.tension-low strong {
+  color: #388e3c;
+}
+
+.ranking-rate span {
+  color: #6b7c75;
+  font-size: 12px;
+}
+
+.progress-bar {
+  background: #eef2ef;
+  border-radius: 999px;
+  height: 8px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  background: #157f63;
+  border-radius: 999px;
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.progress-fill.tension-critical {
+  background: #d32f2f;
+}
+
+.progress-fill.tension-high {
+  background: #f57c00;
+}
+
+.progress-fill.tension-medium {
+  background: #fbc02d;
+}
+
+.progress-fill.tension-low {
+  background: #388e3c;
+}
+
+.ranking-stats {
+  display: flex;
+  gap: 14px;
+  font-size: 13px;
+  color: #6b7c75;
+}
+
+.stat-item {
+  align-items: center;
+  display: inline-flex;
+  gap: 5px;
+}
+
+.stat-item em {
+  border-radius: 50%;
+  display: inline-block;
+  height: 8px;
+  width: 8px;
+  font-style: normal;
+}
+
+.dot-occupied {
+  background: #d32f2f;
+}
+
+.dot-reserved {
+  background: #f57c00;
+}
+
+.dot-maintenance {
+  background: #90a4ae;
+}
+
 .stat-grid {
   display: grid;
   gap: 12px;
@@ -336,9 +540,15 @@ th {
     padding: 20px;
   }
 
+  .ranking-grid,
   .stat-grid,
   .billing-grid,
   .two-column {
     grid-template-columns: 1fr;
+  }
+
+  .ranking-header {
+    flex-direction: column;
+    gap: 6px;
   }
 }
